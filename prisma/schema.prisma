@@ -8,7 +8,7 @@ datasource db {
 }
 
 model client {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(dbgenerated("(uuid())")) @db.Char(36)
   name      String    @db.VarChar(50)
   address   String    @db.VarChar(50)
   phone     String    @db.VarChar(11)

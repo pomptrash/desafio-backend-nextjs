@@ -21,15 +21,9 @@ import { NextResponse } from "next/server";
 // método GET para buscar um cliente específico
 export async function GET(request, { params }) {
   // desestruturando params
-  const { id } = params;
+  const { id: clientID } = params;
 
   try {
-    // converte o id para inteiro
-    const clientID = parseInt(id);
-
-    // verifica se o ID é um número válido
-    if (isNaN(clientID))
-      return NextResponse.json({ error: "ID inválido" }, { status: 400 });
 
     // caso o ID seja válido, procura o ID no banco e retorna o cliente específico
     const client = await prisma.client.findUnique({
@@ -58,13 +52,7 @@ export async function PUT(request, { params }) {
     const body = await request.json();
     // desestruturação do body e params
     const { name, address, phone, email } = body;
-    const { id } = params;
-    // converte o id para inteiro
-    const clientID = parseInt(id);
-
-    // verifica se o ID é um número válido
-    if (isNaN(clientID))
-      return NextResponse.json({ error: "ID inválido" }, { status: 400 });
+    const { id: clientID } = params;
 
     // valida os campos individualmente
     if (!name || !address || !phone || !email) {
@@ -115,15 +103,9 @@ export async function PUT(request, { params }) {
 // método DELETE para deletar cliente
 export async function DELETE(request,{ params }) {
   // desestruturando params
-  const { id } = params;
+  const { id: clientID } = params;
 
   try {
-    // convertendo o id para inteiro
-    const clientID = parseInt(id);
-
-    // validando o id
-    if (isNaN(clientID))
-      return NextResponse.json({ error: "ID inválido" }, { status: 400 });
 
     // deletando cliente
     await prisma.client.delete({
