@@ -5,7 +5,7 @@
  * Matrícula: 01748208
  *
  * Descrição:
- * Arquivo contendo o script SQL da criação da tabela cliente que será utilizada no projeto.
+ * Arquivo contendo o script SQL da criação da tabela 'client' que será utilizada no projeto.
  *
  * Este script é parte o curso de ADS.
  */
