@@ -11,24 +11,10 @@
  * Este script é parte o curso de ADS.
  */
 import { Client } from "./_components/Client";
-export default function Clients() {
-  // array para testes
-  const clients = [
-    {
-      id: "1",
-      name: "joao",
-      address: "rua 10",
-      phone: "85940028922",
-      email: "joao@email.com",
-    },
-    {
-      id: "2",
-      name: "maria",
-      address: "rua 5",
-      phone: "85940028922",
-      email: "maria@email.com",
-    },
-  ];
+import { getClients } from "../../../services/clientServices";
+export default async function Clients() {
+  const clients = await getClients();
+
   return (
     <table>
       <thead>
@@ -42,8 +28,8 @@ export default function Clients() {
         </tr>
       </thead>
       <tbody>
-        {clients.map((client) => (
-          <Client key={client.email} clientData={client} />
+        {clients.map((client, index) => (
+          <Client key={client.email} clientData={client} index={index} />
         ))}
       </tbody>
     </table>

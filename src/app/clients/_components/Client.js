@@ -13,23 +13,46 @@
  */
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { UpdateClient } from "./UpdateClient";
-export function Client({ clientData }) {
+import { deleteClient } from "../../../../services/clientServices";
+export function Client({ clientData, index }) {
   const [update, setUpdate] = useState(false); // state para capturar clique no botão de atualizar
   // ao clicar em atualizar, o state update recebe 'true' e o componente 'UpdateClient' é renderizado
-
+  const router = useRouter();
   const { id, name, address, phone, email } = clientData ?? {};
 
+  // função para tratar o método delete
+  async function handleDelete() {
+    // confirmação para deletar
+    const confirmed = window.confirm(`Tem certeza que deseja deletar ${name}`);
+
+    if (confirmed) {
+      try {
+        await deleteClient(id);
+        router.refresh();
+        alert("Cliente deletado com sucesso.");
+      } catch (err) {
+        console.error("Erro ao deletar cliente.", err);
+        alert("Erro ao deletar cliente.");
+      }
+    }
+  }
   return (
     <tr>
-      {/* id imutável */}
-      <td>{id}</td> 
+      {/* index somente para visualização */}
+      <td>{index + 1}</td>
 
       {/* caso update seja true, ou seja, ação de atualizar foi chamada */}
-      {update && <UpdateClient update={update} setUpdate={setUpdate} clientData={clientData} />}
-      {/* caso update seja false, ou seja, ação de atualizar não foi chamada */}
-      {!update && (
+      {update ? (
+        <UpdateClient
+          update={update}
+          setUpdate={setUpdate}
+          clientData={clientData}
+        />
+      ) : (
         <>
+          {/* caso update seja false, ou seja, ação de atualizar não foi chamada */}
           <td>{name}</td>
           <td>{address}</td>
           <td>{phone}</td>
@@ -37,7 +60,7 @@ export function Client({ clientData }) {
           <td>
             {/* ao clicar, o state update recebe true */}
             <button onClick={() => setUpdate(!update)}>Atualizar</button>
-            <button>Deletar</button>
+            <button onClick={() => handleDelete()}>Deletar</button>
           </td>
         </>
       )}

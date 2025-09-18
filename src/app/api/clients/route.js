@@ -14,12 +14,13 @@
  */
 
 import { prisma } from "../../../../lib/prisma";
+import { getClients } from "../../../../services/clientServices";
 import { NextResponse } from "next/server";
 
 // método GET para buscar todos os clientes
 export async function GET() {
   try {
-    const clients = await prisma.client.findMany();
+    const clients = await getClients()
     return NextResponse.json(clients, { status: 200 });
   } catch (error) {
     return NextResponse.json(
