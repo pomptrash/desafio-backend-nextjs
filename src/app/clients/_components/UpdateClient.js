@@ -34,7 +34,7 @@ export function UpdateClient({ update, setUpdate, clientData }) {
   // função para tratar o método update
   async function handleClick() {
     //  pequena validação
-    if (!name || !address || !phone || !email) {
+    if (!newName || !newAddress || !newPhone || !newEmail) {
       alert("Preencha todos os campos.");
       return;
     } else {
@@ -49,7 +49,7 @@ export function UpdateClient({ update, setUpdate, clientData }) {
         }
       } catch (err) {
         console.log(err);
-        alert(`Erro ao atualizar dados: ${err}`);
+        alert(err);
       }
     }
   }
@@ -87,6 +87,7 @@ export function UpdateClient({ update, setUpdate, clientData }) {
       </td>
       <td>
         <button onClick={() => handleClick()}>Confirmar</button>
+        <button onClick={() => setUpdate(!update)}>Cancelar</button>
       </td>
     </>
   );
