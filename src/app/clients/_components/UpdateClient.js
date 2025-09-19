@@ -73,7 +73,7 @@ export function UpdateClient({ update, setUpdate, clientData }) {
         <input
           placeholder="Telefone"
           defaultValue={phone}
-          type="number"
+          type="tel"
           onChange={(e) => setNewPhone(e.target.value)}
         ></input>
       </td>

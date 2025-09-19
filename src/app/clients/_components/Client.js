@@ -33,7 +33,7 @@ export function Client({ clientData, index }) {
         router.refresh();
         alert("Cliente deletado com sucesso.");
       } catch (err) {
-        console.error("Erro ao deletar cliente.", err);
+        console.error(err);
         alert("Erro ao deletar cliente.");
       }
     }
