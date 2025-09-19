@@ -14,38 +14,65 @@
  */
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { fetchCEP } from "../../../../services/viaCepApi";
+import { createNewClient } from "../../../../services/clientServices";
 export default function NewClient() {
   const [newClientName, setNewClientName] = useState();
-  const [newClientAddress, setNewClientAddress] = useState();
   const [newClientPhone, setNewClientPhone] = useState();
   const [newClientEmail, setNewClientEmail] = useState();
 
-  const [newClientCEP, setNewClientCEP] = useState();
-  const [newClientLogradouro, setNewClientLogradouro] = useState("");
-  const [newClientNumero, setNewClientNumero] = useState();
-  const [newClientBairro, setNewClientBairro] = useState("");
-  const [newClientCidade, setNewClientCidade] = useState("");
-  const [newClientUF, setNewClientUF] = useState("");
+  const [clientCEP, setClientCEP] = useState();
+  const [clientLogradouro, setClientLogradouro] = useState("");
+  const [clientNumero, setClientNumero] = useState();
+  const [clientBairro, setClientBairro] = useState("");
+  const [clientCidade, setClientCidade] = useState("");
+  const [clientUF, setClientUF] = useState("");
 
-  const newClient = {
-    name: newClientName,
-    address: newClientAddress,
-    phone: newClientPhone,
-    email: newClientEmail,
-  };
+  const router = useRouter();
 
   async function handleCEP(cep) {
     try {
       const data = await fetchCEP(cep);
       if (data) {
-        setNewClientLogradouro(data.logradouro);
-        setNewClientBairro(data.bairro);
-        setNewClientCidade(data.localidade);
-        setNewClientUF(data.uf);
+        setClientLogradouro(data.logradouro);
+        setClientBairro(data.bairro);
+        setClientCidade(data.localidade);
+        setClientUF(data.uf);
       }
     } catch (err) {
       console.log(err);
+    }
+  }
+
+  async function handlePost() {
+    const fullAdress = `${clientLogradouro}, ${clientNumero}, ${clientBairro}, ${clientCidade} - ${clientUF}`;
+    const newClientData = {
+      name: newClientName,
+      address: fullAdress,
+      phone: newClientPhone,
+      email: newClientEmail,
+    };
+    if (
+      !newClientData.name ||
+      !newClientData.address ||
+      !newClientData.phone ||
+      !newClientData.email
+    ) {
+      alert("Preencha todos os campos.");
+      return;
+    }
+    try {
+      const created = await createNewClient(newClientData);
+      if (created) {
+        alert("Cliente criado com sucesso.");
+        router.replace("/clients");
+      } else {
+        throw new Error("Erro");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao cadastrar cliente.");
     }
   }
   return (
@@ -58,29 +85,29 @@ export default function NewClient() {
         ></input>
         <input
           placeholder="CEP"
-          onChange={(e) => setNewClientCEP(e.target.value)}
-          onBlur={(e) => handleCEP(newClientCEP)}
+          onChange={(e) => setClientCEP(e.target.value)}
+          onBlur={(e) => handleCEP(clientCEP)}
         ></input>
         <input
           placeholder="Logradouro"
           disabled={true}
-          value={newClientLogradouro}
+          value={clientLogradouro}
         ></input>
         <input
           placeholder="Bairro"
           disabled={true}
-          value={newClientBairro}
+          value={clientBairro}
         ></input>
         <input
           placeholder="Cidade"
           disabled={true}
-          value={newClientCidade}
+          value={clientCidade}
         ></input>
-        <input placeholder="UF" disabled={true} value={newClientUF}></input>
+        <input placeholder="UF" disabled={true} value={clientUF}></input>
         <input
           placeholder="Número"
           type="number"
-          onChange={(e) => setNewClientNumero(e.target.value)}
+          onChange={(e) => setClientNumero(e.target.value)}
         ></input>
 
         <input
@@ -96,9 +123,7 @@ export default function NewClient() {
         <button
           onClick={(e) => {
             e.preventDefault();
-            setNewClientAddress(
-              `${newClientLogradouro}, ${newClientNumero}, ${newClientBairro}, ${newClientCidade} - ${newClientUF}`
-            );
+            handlePost();
           }}
         >
           Cadastrar
