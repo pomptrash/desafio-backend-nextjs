@@ -14,7 +14,8 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 import { prisma } from "../lib/prisma";
 
-// pega os dados inicias diretamente do banco de dados com o prisma, função consumida pelo server component 'clients/page.js'
+// pega os dados iniciais diretamente do banco de dados com o prisma, função consumida pelo server component 'clients/page.js'
+// evita 'loopback': servidor requisitando ele mesmo através da api
 export async function getClients() {
   try {
     const clients = await prisma.client.findMany();
