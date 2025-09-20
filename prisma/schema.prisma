@@ -10,9 +10,33 @@ datasource db {
 model client {
   id        String    @id @default(dbgenerated("(uuid())")) @db.Char(36)
   name      String    @db.VarChar(50)
-  address   String    @db.VarChar(50)
+  address   String    @db.VarChar(100)
   phone     String    @db.VarChar(11)
   email     String    @unique(map: "email") @db.VarChar(50)
-  createdAt DateTime? @default(now()) @db.DateTime(0)
-  updatedAt DateTime? @default(now()) @db.DateTime(0)
+  createdAt DateTime? @default(now()) @db.Timestamp(0)
+  updatedAt DateTime? @default(now()) @db.Timestamp(0)
+
+  service_orders service_order[]
+}
+
+model service_order {
+  id                String                     @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  client_id         String                     @db.Char(36)
+  deadline_date     DateTime?                  @db.Date
+  order_description String                     @db.Text
+  estimated_cost    Decimal?                   @db.Decimal(10, 2)
+  final_cost        Decimal?                   @db.Decimal(10, 2)
+  order_status      service_order_order_status @default(PENDENTE)
+  createdAt         DateTime?                  @default(now()) @db.Timestamp(0)
+  updatedAt         DateTime?                  @default(now()) @db.Timestamp(0)
+
+  client client @relation(fields: [client_id], references: [id])
+
+  @@index([client_id], map: "client_id")
+}
+
+enum service_order_order_status {
+  FINALIZADO
+  PENDENTE
+  CANCELADO
 }
