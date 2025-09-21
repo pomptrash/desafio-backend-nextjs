@@ -5,7 +5,7 @@
  * Matrícula: 01748208
  *
  * Descrição:
- * 
+ *
  * Criação do endpoint dinâmico '/clients/[id]' com suas rotas:
  * GET /clients/[id]: busca e retorna o cliente correspondente ao ID
  * PUT /clients/[id]: busca e atualiza o cliente indicado pelo ID
@@ -17,17 +17,16 @@
 import { prisma } from "../../../../../lib/prisma";
 import { NextResponse } from "next/server";
 
-
 // método GET para buscar um cliente específico
 export async function GET(request, { params }) {
   // desestruturando params
   const { id: clientID } = params;
 
   try {
-
     // caso o ID seja válido, procura o ID no banco e retorna o cliente específico
     const client = await prisma.client.findUnique({
       where: { id: clientID },
+      include: { service_orders: true }, // retorna as ordens de serviços associadas ao cliente
     });
 
     // caso o ID não corresponda a nenhum cliente cadastrado, retorna erro 404 not found
@@ -46,7 +45,7 @@ export async function GET(request, { params }) {
   }
 }
 
-// método PUT para atualizar dados do cliente 
+// método PUT para atualizar dados do cliente
 export async function PUT(request, { params }) {
   try {
     const body = await request.json();
@@ -75,7 +74,6 @@ export async function PUT(request, { params }) {
 
     return NextResponse.json(updatedClient, { status: 200 });
   } catch (error) {
-
     // error.code fornecido pelo prisma para especificar o erro
     if (error.code === "P2025") {
       return NextResponse.json(
@@ -101,29 +99,38 @@ export async function PUT(request, { params }) {
 }
 
 // método DELETE para deletar cliente
-export async function DELETE(request,{ params }) {
+export async function DELETE(request, { params }) {
   // desestruturando params
   const { id: clientID } = params;
 
   try {
-
     // deletando cliente
     await prisma.client.delete({
       where: { id: clientID },
     });
-
 
     return NextResponse.json(
       { message: "Cliente deletado com sucesso." },
       { status: 200 }
     );
   } catch (error) {
-
     // error.code fornecido pelo prisma para especificar o erro
     if (error.code === "P2025") {
       return NextResponse.json(
         { error: "Cliente não encontrado" },
         { status: 404 }
+      );
+    }
+
+    // evita que um cliente que possua ordens criadas seja excluído
+    // obedece à regra: REFERENCES client(id) ON DELETE RESTRICT ON UPDATE CASCADE do banco de dados
+    if (error.code === "P2003") {
+      return NextResponse.json(
+        {
+          error:
+            "Não é possível excluir clientes que possuem ordens de serviço criadas.",
+        },
+        { status: 400 }
       );
     }
     // erro genérico
