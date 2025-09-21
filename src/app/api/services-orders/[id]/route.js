@@ -19,7 +19,7 @@ import { NextResponse } from "next/server";
 
 // método GET para requisitar uma ordem correspondente ao ID passado
 export async function GET(request, { params }) {
-  const { id: orderID } = params;
+  const { id: orderID } = await params;
 
   try {
     const order = await prisma.service_order.findUnique({
@@ -59,7 +59,7 @@ export async function PUT(request, { params }) {
     const enumStatus = ["FINALIZADO", "PENDENTE", "CANCELADO"];
 
     // desestruturação de 'params' e do body da request
-    const { id: orderID } = params;
+    const { id: orderID } = await params;
     const {
       deadline_date,
       order_description,
@@ -137,7 +137,7 @@ export async function PUT(request, { params }) {
 
 // método DELETE para excluir uma ordem de serviço correspondente ao ID passado
 export async function DELETE(request, { params }) {
-  const { id: orderID } = params;
+  const { id: orderID } = await params;
 
   try {
     await prisma.service_order.delete({

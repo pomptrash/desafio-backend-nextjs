@@ -20,7 +20,7 @@ import { NextResponse } from "next/server";
 // método GET para buscar um cliente específico
 export async function GET(request, { params }) {
   // desestruturando params
-  const { id: clientID } = params;
+  const { id: clientID } = await params;
 
   try {
     // caso o ID seja válido, procura o ID no banco e retorna o cliente específico
@@ -51,7 +51,7 @@ export async function PUT(request, { params }) {
     const body = await request.json();
     // desestruturação do body e params
     const { name, address, phone, email } = body;
-    const { id: clientID } = params;
+    const { id: clientID } = await params;
 
     // valida os campos individualmente
     if (!name || !address || !phone || !email) {
@@ -101,7 +101,7 @@ export async function PUT(request, { params }) {
 // método DELETE para deletar cliente
 export async function DELETE(request, { params }) {
   // desestruturando params
-  const { id: clientID } = params;
+  const { id: clientID } = await params;
 
   try {
     // deletando cliente
