@@ -26,6 +26,22 @@ export async function getClients() {
   }
 }
 
+// método GET para requisitar um cliente pelo id
+export async function getOneClient(clientID) {
+  try {
+    const response = await fetch(`${API_URL}/api/clients/${clientID}`);
+
+    if (!response.ok) {
+      throw new Error("Cliente não localizado.");
+    }
+
+    return await response.json();
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
 // método post para criação de novo cliente
 export async function createNewClient(newClientData) {
   try {

@@ -16,6 +16,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { UpdateClient } from "./UpdateClient";
 import { deleteClient } from "../../../../services/clientServices";
+import Link from "next/link";
+
 export function Client({ clientData, index }) {
   const [update, setUpdate] = useState(false); // state para capturar clique no botão de atualizar
   // ao clicar em atualizar, o state update recebe 'true' e o componente 'UpdateClient' é renderizado
@@ -61,6 +63,9 @@ export function Client({ clientData, index }) {
             {/* ao clicar, o state update recebe true */}
             <button onClick={() => setUpdate(!update)}>Atualizar</button>
             <button onClick={() => handleDelete()}>Deletar</button>
+            <Link href={`/clients/${id}`}>
+              <button>Ordens de serviço</button>
+            </Link>
           </td>
         </>
       )}
