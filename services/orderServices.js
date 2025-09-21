@@ -33,7 +33,7 @@ export async function getOrders() {
 // função para consumir a API e criar nova ordem de serviço com o método POST
 export async function createNewServiceOrder(newServiceOrderData) {
   try {
-    const response = await fetch(`${API_URL}/api/service-orders`, {
+    const response = await fetch(`${API_URL}/api/services-orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +55,7 @@ export async function createNewServiceOrder(newServiceOrderData) {
 // função para atualizar ordem de serviço, método PUT
 export async function updateServiceOrder(orderID, newData) {
   try {
-    const response = await fetch(`${API_URL}/api/service-orders/${orderID}`, {
+    const response = await fetch(`${API_URL}/api/services-orders/${orderID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +80,7 @@ export async function updateServiceOrder(orderID, newData) {
 // função para deletar ordem de serviço
 export async function deleteServiceOrder(orderID) {
   try {
-    const response = await fetch(`${API_URL}/service-orders/${orderID}`, {
+    const response = await fetch(`${API_URL}/api/services-orders/${orderID}`, {
       method: "DELETE",
     });
 
