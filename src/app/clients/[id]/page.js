@@ -11,46 +11,32 @@
  *
  * Este script é parte o curso de ADS.
  */
+import Link from "next/link";
 import { getOneClient } from "../../../../services/clientServices";
+import { ServiceOrder } from "./_components/ServiceOrder";
 export default async function ClientDetails({ params }) {
-  const { id } = params;
+  const { id } = await params;
+  const client = await getOneClient(id);
 
-  try {
-    const client = await getOneClient(id);
-
-    return (
-      <section>
-        <p>{client?.name}</p>
-        <section>
-          {client.service_orders.length === 0 && (
-            <p>Cliente não possui ordens de serviços.</p>
-          )}
-          {client.service_orders &&
-            client.service_orders.map((service_order, index) => (
-              <div key={service_order.id}>
-                <h3>Serviço {index + 1}</h3>
-                <ul>
-                  <li>Descrição: {service_order.order_description}</li>
-                  <li>Prazo: {service_order.deadline_date}</li>
-                  <li>Custo estimado: {service_order.estimated_cost}</li>
-                  <li>Status: {service_order.order_status}</li>
-                  <li>
-                    Curso final:{" "}
-                    {service_order.final_cost ? service_order.final_cost : "?"}
-                  </li>
-                </ul>
-                <button>Atualizar</button>
-                <button>Cancelar</button>
-                <button>Excluir</button>
-              </div>
-            ))}
-        </section>
-
-        <button>Criar nova ordem de serviço</button>
-      </section>
-    );
-  } catch (err) {
-    console.log("Erro ao carregar detalhes:", err);
-    alert("Erro ao tentar acessar detalhes do cliente.");
-  }
+  return (
+    <section>
+      <button>
+        <Link href={`./${id}/new-service-order`}>
+          Criar nova ordem de serviço
+        </Link>
+      </button>
+      {client.service_orders.length === 0 ? (
+        <p>Cliente não possui ordens de serviço.</p>
+      ) : (
+        client.service_orders &&
+        client.service_orders.map((service_order, index) => (
+          <ServiceOrder
+            key={service_order.id}
+            serviceOrderData={service_order}
+            index={index}
+          />
+        ))
+      )}
+    </section>
+  );
 }
