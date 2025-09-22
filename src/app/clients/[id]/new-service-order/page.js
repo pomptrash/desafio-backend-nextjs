@@ -14,6 +14,7 @@
 import { createNewServiceOrder } from "../../../../../services/orderServices";
 import { use, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function NewServiceOrder({ params }) {
   const { id } = use(params);
@@ -51,6 +52,9 @@ export default function NewServiceOrder({ params }) {
 
   return (
     <section>
+      <button>
+        <Link href={`./`}>Cancelar</Link>
+      </button>
       <h2>Nova ordem de serviço</h2>
       <form>
         <input
@@ -72,6 +76,7 @@ export default function NewServiceOrder({ params }) {
             placeholder="Prazo"
             type="date"
             min={today}
+            defaultValue={today}
             onKeyUp={(e) => e.preventDefault()}
             onKeyDown={(e) => e.preventDefault()}
             onChange={(e) => setDeadlineDate(e.target.value)}

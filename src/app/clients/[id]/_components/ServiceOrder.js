@@ -13,8 +13,11 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { deleteServiceOrder } from "../../../../../services/orderServices";
+import { useState } from "react";
+import { UpdateServiceOrder } from "./UpdateServiceOrder";
 
 export function ServiceOrder({ serviceOrderData, index }) {
+  const [updating, setUpdating] = useState(false);
   const router = useRouter();
 
   const {
@@ -48,19 +51,28 @@ export function ServiceOrder({ serviceOrderData, index }) {
       <div>
         <h3>Serviço {index + 1}</h3>
         <p>criada em: {createdAt.split("T")[0]}</p>
-        <ul>
-          <li>Descrição: {order_description}</li>
-          <li>Prazo: {deadline_date.split("T")[0]}</li>
-          <li>Custo estimado: {estimated_cost}</li>
-          <li>Status: {order_status}</li>
-          <li>
-            Curso final:
-            {final_cost ? final_cost : "?"}
-          </li>
-        </ul>
-        <button>Atualizar</button>
-        <button>Cancelar</button>
-        <button onClick={() => handleOrderDelete()}>Excluir</button>
+        {updating ? (
+          <UpdateServiceOrder
+            serviceOrderData={serviceOrderData}
+            updating={updating}
+            setUpdating={setUpdating}
+          />
+        ) : (
+          <div>
+            <ul>
+              <li>Descrição: {order_description}</li>
+              <li>Prazo: {deadline_date.split("T")[0]}</li>
+              <li>Custo estimado: {parseFloat(estimated_cost).toFixed(2)}</li>
+              <li>Status: {order_status}</li>
+              <li>
+                Curso final:
+                {final_cost ? final_cost : "?"}
+              </li>
+            </ul>
+            <button onClick={() => setUpdating(!updating)}>Atualizar</button>
+            <button onClick={() => handleOrderDelete()}>Excluir</button>
+          </div>
+        )}
       </div>
     </section>
   );
