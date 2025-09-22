@@ -85,7 +85,7 @@ export async function PUT(request, { params }) {
     // error.code fornecido pelo prisma para especificar o erro
     if (error.code === "P2002") {
       return NextResponse.json(
-        { error: "Email já está em uso por outro cliente." },
+        { error: "Email já existe." },
         { status: 409 }
       );
     }

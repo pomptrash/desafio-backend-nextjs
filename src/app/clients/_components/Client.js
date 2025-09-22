@@ -19,8 +19,10 @@ import { deleteClient } from "../../../../services/clientServices";
 import Link from "next/link";
 
 export function Client({ clientData, index }) {
-  const [update, setUpdate] = useState(false); // state para capturar clique no botão de atualizar
   // ao clicar em atualizar, o state update recebe 'true' e o componente 'UpdateClient' é renderizado
+  const [update, setUpdate] = useState(false); // state para capturar clique no botão de atualizar
+
+  // router para atualizar a página após a exclusão
   const router = useRouter();
   const { id, name, address, phone, email } = clientData ?? {};
 
@@ -29,14 +31,17 @@ export function Client({ clientData, index }) {
     // confirmação para deletar
     const confirmed = window.confirm(`Tem certeza que deseja deletar ${name}`);
 
+    // se confirmado
     if (confirmed) {
       try {
+        // faz a requisição de DELETE na api
         await deleteClient(id);
+        // se tudo ok, atualiza a página para mostrar a listagem de clientes atualizada
         router.refresh();
         alert("Cliente deletado com sucesso.");
       } catch (err) {
         console.error(err);
-        alert("Erro ao deletar cliente.");
+        alert(err.message);
       }
     }
   }

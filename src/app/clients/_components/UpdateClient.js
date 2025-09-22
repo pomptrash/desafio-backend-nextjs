@@ -17,19 +17,16 @@ import { updateClientAPI } from "../../../../services/clientServices";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 export function UpdateClient({ update, setUpdate, clientData }) {
+  // router para atualizar a página após a atualização
   const router = useRouter();
-  const { id, name, address, phone, email } = clientData ?? {}; // dados atuais do cliente
+
+  const { id, name, address, phone, email } = clientData ?? {}; // desestruturação dos dados atuais do cliente
+
+  // states para os dados atualizados
   const [newName, setNewName] = useState(name);
   const [newAddress, setNewAddress] = useState(address);
   const [newPhone, setNewPhone] = useState(phone);
   const [newEmail, setNewEmail] = useState(email);
-
-  const newClientData = {
-    name: newName,
-    address: newAddress,
-    phone: newPhone,
-    email: newEmail,
-  };
 
   // função para tratar o método update
   async function handleClick() {
@@ -38,18 +35,23 @@ export function UpdateClient({ update, setUpdate, clientData }) {
       alert("Preencha todos os campos.");
       return;
     } else {
+      // criação do objeto com os novos dados
+      const newClientData = {
+        name: newName.charAt(0).toUpperCase() + newName?.slice(1),
+        address: newAddress,
+        phone: newPhone,
+        email: newEmail,
+      };
       try {
-        const updatedClient = await updateClientAPI(id, newClientData);
-        if (updatedClient) {
-          alert("Atualizado com sucesso");
-          setUpdate(!update);
-          router.refresh();
-        } else {
-          throw new Error("Erro");
-        }
+        // faz a requisição de atualização na API
+        await updateClientAPI(id, newClientData);
+        alert("Atualizado com sucesso");
+        setUpdate(!update);
+        // se tudo ok, atualiza a página para mostrar os dados atualizados.
+        router.refresh();
       } catch (err) {
         console.log(err);
-        alert(err);
+        alert(err.message);
       }
     }
   }
@@ -57,21 +59,24 @@ export function UpdateClient({ update, setUpdate, clientData }) {
     <>
       <td>
         <input
-          placeholder="Nome"
+          required
+          placeholder="Nome (Obrigatório)"
           defaultValue={name}
           onChange={(e) => setNewName(e.target.value)}
         ></input>
       </td>
       <td>
         <input
-          placeholder="Endereço"
+          required
+          placeholder="Endereço (Obrigatório)"
           defaultValue={address}
           onChange={(e) => setNewAddress(e.target.value)}
         ></input>
       </td>
       <td>
         <input
-          placeholder="Telefone"
+          required
+          placeholder="Telefone (Obrigatório)"
           defaultValue={phone}
           type="tel"
           onChange={(e) => setNewPhone(e.target.value)}
@@ -79,7 +84,8 @@ export function UpdateClient({ update, setUpdate, clientData }) {
       </td>
       <td>
         <input
-          placeholder="Email"
+          required
+          placeholder="Email (Obrigatório)"
           defaultValue={email}
           type="email"
           onChange={(e) => setNewEmail(e.target.value)}

@@ -5,7 +5,7 @@
  * Matrícula: 01748208
  *
  * Descrição:
- * 
+ *
  * Criação do endpoint '/clients' com suas rotas:
  * GET /clients: busca e retorna todos os clientes cadastrados
  * POST /clients: cadastra um novo cliente no banco
@@ -20,7 +20,7 @@ import { NextResponse } from "next/server";
 // método GET para buscar todos os clientes
 export async function GET() {
   try {
-    const clients = await getClients()
+    const clients = await getClients();
     return NextResponse.json(clients, { status: 200 });
   } catch (error) {
     return NextResponse.json(
@@ -29,7 +29,6 @@ export async function GET() {
     );
   }
 }
-
 
 // método POST para criar novo cliente no banco
 export async function POST(request) {
@@ -58,6 +57,13 @@ export async function POST(request) {
 
     return NextResponse.json(newClient, { status: 201 });
   } catch (error) {
+    // prisma error.code para 'unique constraint failed'
+    if (error.code === "P2002") {
+      return NextResponse.json(
+        { error: "Email já utilizado" },
+        { status: 409 }
+      );
+    }
     return NextResponse.json(
       { error: "Erro ao cadastrar novo cliente." },
       { status: 500 }

@@ -32,12 +32,13 @@ export async function getOneClient(clientID) {
     const response = await fetch(`${API_URL}/api/clients/${clientID}`);
 
     if (!response.ok) {
-      throw new Error("Cliente não localizado.");
+      const errorText = await response.json()
+      throw new Error(errorText.error);
     }
 
     return await response.json();
   } catch (err) {
-    console.log(err);
+    console.error(`Erro no serviço 'getOneClient': ${err}`);
     throw err;
   }
 }
@@ -54,14 +55,14 @@ export async function createNewClient(newClientData) {
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Erro: ${response.status} - ${errorText}`);
+      const errorText = await response.json();
+      throw new Error(errorText.error);
     }
 
     return await response.json();
   } catch (err) {
-    console.error(err);
-    throw new Error("Erro ao criar novo cliente");
+    console.error(`Erro no serviço 'createNewClient': ${err}`);
+    throw err;
   }
 }
 
@@ -77,15 +78,13 @@ export async function updateClientAPI(clientID, newClientData) {
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(
-        `Erro ${response.status}: ${response.statusText}. Detalhes: ${errorText}`
-      );
+      const errorText = await response.json();
+      throw new Error(errorText.error);
     }
 
     return await response.json();
   } catch (err) {
-    console.log(err);
+    console.error(`Erro no serviço 'updateClientAPI': ${err}`);
     throw err;
   }
 }
@@ -98,10 +97,11 @@ export async function deleteClient(clientID) {
     });
 
     if (!response.ok) {
-      throw new Error(`Erro: ${response.status}: ${response.statusText}`);
+      const errorText = await response.json()
+      throw new Error(errorText.error);
     }
   } catch (err) {
-    console.log(err);
+    console.error(`Erro no serviço 'deleteClient': ${err}`);
     throw err;
   }
 }
