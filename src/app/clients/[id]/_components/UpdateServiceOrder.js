@@ -21,8 +21,10 @@ export function UpdateServiceOrder({
 }) {
   // pega data atual para limitar o input de data, não permitindo uma data que já passou
   const today = new Date().toISOString().split("T")[0];
+  // router para atualizar a página após a atualização
   const router = useRouter();
 
+  // desestruturando objeto com as informações atuais da ordem de serviço
   const {
     id,
     order_description,
@@ -32,40 +34,66 @@ export function UpdateServiceOrder({
     final_cost,
   } = serviceOrderData;
 
+  // passa os valores atuais como padrão para os states que irão receber os novos valores
   const [newDescription, setNewDescription] = useState(order_description);
   const [newDeadlineDate, setNewDeadlineDate] = useState(deadline_date);
   const [newEstimatedCost, setNewEstimatedCost] = useState(estimated_cost);
   const [newStatus, setNewStatus] = useState(order_status);
   const [newFinalCost, setNewFinalCost] = useState(final_cost);
 
-  const newServiceOrderData = {
-    order_description: newDescription,
-    deadline_date: newDeadlineDate,
-    estimated_cost: newEstimatedCost,
-    order_status: newStatus,
-    final_cost: newFinalCost,
-  };
-
   async function handleUpdate() {
+    // validando novos dados
+    if (!newDescription || !newDeadlineDate || !newEstimatedCost) {
+      alert("Preencha todos os campos");
+      return;
+    }
+
+    if (newEstimatedCost < 0) {
+      alert("Custo estimado não pode ser menor que zero");
+      return;
+    }
+
+    if (newStatus === "FINALIZADO" && !newFinalCost) {
+      alert(
+        "Para finalizar uma ordem de serviço, é necessário informar o custo final."
+      );
+      return;
+    }
+
+    if (newFinalCost && newFinalCost < 0) {
+      alert("Custo final não pode ser menor que zero");
+      return;
+    }
+
+    // cria objeto com os novos dados após as validações
+    const newServiceOrderData = {
+      order_description: newDescription,
+      deadline_date: newDeadlineDate,
+      estimated_cost: newEstimatedCost,
+      order_status: newStatus,
+      final_cost: newFinalCost,
+    };
+    // a requisição de update é feita na api
     try {
       const updated = await updateServiceOrder(id, newServiceOrderData);
-      if (updated) {
-        alert("Ordem de serviço atualizada com sucesso.");
-        setUpdating(!updating);
-        router.refresh();
-      }
+      alert("Ordem de serviço atualizada com sucesso.");
+      setUpdating(!updating);
+      // se ok, atualiza a página para mostrar os novos dados
+      router.refresh();
     } catch (err) {
-      alert(err);
+      console.log(err);
+      alert(err.message);
     }
   }
   return (
     <div>
+      <h4>Atualize as informações</h4>
       <ul>
         <li>
           Descrição:{" "}
           <input
             defaultValue={order_description}
-            placeholder="Descrição"
+            placeholder="Descrição (Obrigatório)"
             required
             onChange={(e) => setNewDescription(e.target.value)}
           ></input>
@@ -87,7 +115,7 @@ export function UpdateServiceOrder({
           Custo estimado:{" "}
           <input
             defaultValue={estimated_cost}
-            placeholder="Custo Estimado"
+            placeholder="Custo Estimado (Obrigatório)"
             type="number"
             min="0"
             step="0.01"

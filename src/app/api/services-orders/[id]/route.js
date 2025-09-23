@@ -140,6 +140,7 @@ export async function DELETE(request, { params }) {
   const { id: orderID } = await params;
 
   try {
+    // deletando ordem de serviço
     await prisma.service_order.delete({
       where: {
         id: orderID,
@@ -158,6 +159,7 @@ export async function DELETE(request, { params }) {
         { error: "Ordem de serviço não localizada" },
         { status: 404 }
       );
+    // erro genérico
     return NextResponse.json(
       { error: "Erro ao deletar a ordem de serviço." },
       { status: 500 }

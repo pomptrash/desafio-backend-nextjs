@@ -46,6 +46,7 @@ export async function POST(request) {
       );
     }
 
+    // após a validação, cria a nova ordem de serviço no banco de dados
     const newServiceOrder = await prisma.service_order.create({
       data: {
         client_id,

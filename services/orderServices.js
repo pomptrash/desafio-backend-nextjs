@@ -42,13 +42,14 @@ export async function createNewServiceOrder(newServiceOrderData) {
     });
 
     if (!response.ok) {
-      throw new Error("Erro ao criar nova ordem de serviço");
+      const errorText = await response.json()
+      throw new Error(errorText.error);
     }
 
     return await response.json();
   } catch (err) {
-    console.log(err);
-    throw new Error("Erro ao criar nova ordem de serviço");
+    console.log("Erro no serviço 'createNewServiceOrder':", err);
+    throw err;
   }
 }
 
@@ -64,15 +65,13 @@ export async function updateServiceOrder(orderID, newData) {
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(
-        `Erro ${response.status}: ${response.statusText}. Detalhes: ${errorText}`
-      );
+      const errorText = await response.json();
+      throw new Error(errorText.error);
     }
 
     return await response.json();
   } catch (err) {
-    console.log(err);
+    console.log("Erro no serviço 'updateServiceOrder':", err);
     throw err;
   }
 }
@@ -85,9 +84,11 @@ export async function deleteServiceOrder(orderID) {
     });
 
     if (!response.ok) {
-      throw new Error(`Erro: ${response.status}: ${response.statusText}`);
+      const errorText = await response.json()
+      throw new Error(errorText.error);
     }
   } catch (err) {
+    console.log("Erro no serviço 'deleteServiceOrder':", err);
     throw err;
   }
 }

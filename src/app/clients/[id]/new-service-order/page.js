@@ -6,10 +6,10 @@
  *
  * Descrição:
  * Rota para criação de nova ordem de serviço
- * 
+ *
  * Este script é parte o curso de ADS.
  */
- 
+
 "use client";
 import { createNewServiceOrder } from "../../../../../services/orderServices";
 import { use, useState } from "react";
@@ -35,18 +35,26 @@ export default function NewServiceOrder({ params }) {
       estimated_cost: parseFloat(estimatedCost).toFixed(2),
     };
 
-    try {
-      const created = await createNewServiceOrder(newServiceOrderData);
+    // validando os dados 
+    if (!newServiceOrderData.client_id || !newServiceOrderData.deadline_date || !newServiceOrderData.order_description || !newServiceOrderData.estimated_cost) {
+      alert("Preencha todos os campos obrigatórios")
+      return
+    }
 
-      if (created) {
-        alert("Nova ordem de serviço criada com sucesso.");
-        router.replace(`/clients/${id}`);
-      } else {
-        alert("Erro ao criar nova ordem");
-      }
+    if (estimatedCost < 0) {
+      alert("Custo estimado não pode ser menor que zero")
+      return
+    }
+
+    // faz a requisição caso os dados tenham sido validados
+    try {
+      await createNewServiceOrder(newServiceOrderData);
+      alert("Nova ordem de serviço criada com sucesso.");
+      // se ok, a página é redirecionada para a listagem de ordens criadas.
+      router.replace(`/clients/${id}`);
     } catch (err) {
       console.log(err);
-      alert(err);
+      alert(err.message);
     }
   }
 
@@ -58,12 +66,12 @@ export default function NewServiceOrder({ params }) {
       <h2>Nova ordem de serviço</h2>
       <form>
         <input
-          placeholder="Descrição"
+          placeholder="Descrição (Obrigatório)"
           onChange={(e) => setOrderDescription(e.target.value)}
           required
         ></input>
         <input
-          placeholder="Custo Estimado"
+          placeholder="Custo Estimado (Obrigatório)"
           type="number"
           min="0"
           step="0.01"
@@ -76,7 +84,6 @@ export default function NewServiceOrder({ params }) {
             placeholder="Prazo"
             type="date"
             min={today}
-            defaultValue={today}
             onKeyUp={(e) => e.preventDefault()}
             onKeyDown={(e) => e.preventDefault()}
             onChange={(e) => setDeadlineDate(e.target.value)}
