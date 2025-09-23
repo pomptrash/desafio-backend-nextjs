@@ -1,0 +1,14 @@
+/**
+ * Nome do arquivo: globals.css
+ * Data de criação: 12/09/2025
+ * Autor: João Pompeu
+ * Matrícula: 01748208
+ *
+ * Descrição:
+ * arquivo css responsável por integrar as classes do tailwind ao projeto
+ *
+ * Este script é parte o curso de ADS.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
