@@ -19,7 +19,7 @@ export default async function Clients() {
   return (
     <div>
       <div className="table-wrapper">
-        <table className="border-2 border-collapse mb-7">
+        <table className="table">
           <thead>
             <tr className="table-tr font-extrabold">
               <td className="table-td">ID</td>

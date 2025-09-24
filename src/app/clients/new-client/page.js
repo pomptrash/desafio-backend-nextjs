@@ -106,90 +106,153 @@ export default function NewClient() {
 
   return (
     <section>
-      <h2>Novo Cliente</h2>
-      <form>
+      <h2 className="form-title">Novo Cliente</h2>
+      <form className="form">
         <input
+          className="input form-input"
           required
           placeholder="Nome (Obrigatório)"
           onChange={(e) => setNewClientName(e.target.value)}
         ></input>
         <input
+          className="input form-input"
           required
           placeholder="E-mail (Obrigatório)"
           type="email"
           onChange={(e) => setNewClientEmail(e.target.value)}
         ></input>
         <input
+          className="input form-input"
           required
           placeholder="Telefone (Obrigatório)"
           type="tel"
           onChange={(e) => setNewClientPhone(e.target.value)}
         ></input>
         <input
+          className="input form-input"
           placeholder="CEP"
           type="number"
           onChange={(e) => setClientCEP(e.target.value)}
           onBlur={(e) => handleCEP(clientCEP)}
         ></input>
         <input
+          className="input form-input"
           required
           placeholder="Rua (Obrigatório)"
           value={clientLogradouro}
           onChange={(e) => setClientLogradouro(e.target.value)}
         ></input>
         <input
+          className="input form-input"
           placeholder="Número"
           onChange={(e) => setClientNumero(e.target.value)}
         ></input>
         <input
+          className="input form-input"
           required
           placeholder="Bairro (Obrigatório)"
           value={clientBairro}
           onChange={(e) => setClientBairro(e.target.value)}
         ></input>
         <input
+          className="input form-input"
           required
           placeholder="Cidade (Obrigatório)"
           value={clientCidade}
           onChange={(e) => setClientCidade(e.target.value)}
         ></input>
-        *
         <select
+          className="select"
           required
           placeholder="UF"
           value={clientUF}
           onChange={(e) => setClientUF(e.target.value)}
           maxLength={2}
         >
-          <option value="AC">AC</option>
-          <option value="AL">AL</option>
-          <option value="AP">AP</option>
-          <option value="AM">AM</option>
-          <option value="BA">BA</option>
-          <option value="CE">CE</option>
-          <option value="DF">DF</option>
-          <option value="ES">ES</option>
-          <option value="GO">GO</option>
-          <option value="MA">MA</option>
-          <option value="MT">MT</option>
-          <option value="MS">MS</option>
-          <option value="MG">MG</option>
-          <option value="PA">PA</option>
-          <option value="PB">PB</option>
-          <option value="PR">PR</option>
-          <option value="PE">PE</option>
-          <option value="PI">PI</option>
-          <option value="RJ">RJ</option>
-          <option value="RN">RN</option>
-          <option value="RS">RS</option>
-          <option value="RO">RO</option>
-          <option value="RR">RR</option>
-          <option value="SC">SC</option>
-          <option value="SP">SP</option>
-          <option value="SE">SE</option>
-          <option value="TO">TO</option>
+          <option className="select-option" value="AC">
+            AC
+          </option>
+          <option className="select-option" value="AL">
+            AL
+          </option>
+          <option className="select-option" value="AP">
+            AP
+          </option>
+          <option className="select-option" value="AM">
+            AM
+          </option>
+          <option className="select-option" value="BA">
+            BA
+          </option>
+          <option className="select-option" value="CE">
+            CE
+          </option>
+          <option className="select-option" value="DF">
+            DF
+          </option>
+          <option className="select-option" value="ES">
+            ES
+          </option>
+          <option className="select-option" value="GO">
+            GO
+          </option>
+          <option className="select-option" value="MA">
+            MA
+          </option>
+          <option className="select-option" value="MT">
+            MT
+          </option>
+          <option className="select-option" value="MS">
+            MS
+          </option>
+          <option className="select-option" value="MG">
+            MG
+          </option>
+          <option className="select-option" value="PA">
+            PA
+          </option>
+          <option className="select-option" value="PB">
+            PB
+          </option>
+          <option className="select-option" value="PR">
+            PR
+          </option>
+          <option className="select-option" value="PE">
+            PE
+          </option>
+          <option className="select-option" value="PI">
+            PI
+          </option>
+          <option className="select-option" value="RJ">
+            RJ
+          </option>
+          <option className="select-option" value="RN">
+            RN
+          </option>
+          <option className="select-option" value="RS">
+            RS
+          </option>
+          <option className="select-option" value="RO">
+            RO
+          </option>
+          <option className="select-option" value="RR">
+            RR
+          </option>
+          <option className="select-option" value="SC">
+            SC
+          </option>
+          <option className="select-option" value="SP">
+            SP
+          </option>
+          <option className="select-option" value="SE">
+            SE
+          </option>
+          <option className="select-option" value="TO">
+            TO
+          </option>
         </select>
         <button
+          className="btn"
           onClick={(e) => {
             e.preventDefault();
             handlePost();

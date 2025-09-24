@@ -19,7 +19,7 @@ import { deleteClient } from "../../../../services/clientServices";
 import Link from "next/link";
 
 // ícones
-import { Pencil, Trash } from 'lucide-react';
+import { Pencil, Trash, ListTodo } from 'lucide-react';
 
 export function Client({ clientData, index }) {
   // ao clicar em atualizar, o state update recebe 'true' e o componente 'UpdateClient' é renderizado
@@ -69,10 +69,10 @@ export function Client({ clientData, index }) {
           <td className="table-td">{address}</td>
           <td className="actions">
             {/* ao clicar, o state update recebe true */}
-            <button className="btn" onClick={() => setUpdate(!update)}><Pencil className="font-bold"/></button>
-            <button className="btn" onClick={() => handleDelete()}><Trash className="font-bold"/></button>
+            <button className="btn " title="Atualizar" onClick={() => setUpdate(!update)}><Pencil/></button>
+            <button className="btn" title="Excluir" onClick={() => handleDelete()}><Trash/></button>
             <Link href={`/clients/${id}`}>
-              <button className="border-l-2 pl-1 py-3 border-primary hover:scale-110">Ordens de serviço</button>
+              <button className="btn" title="Ordens de serviço"><ListTodo/></button>
             </Link>
           </td>
         </>

@@ -86,21 +86,29 @@ export function UpdateServiceOrder({
     }
   }
   return (
-    <div>
-      <h4>Atualize as informações</h4>
-      <ul>
-        <li>
-          Descrição:{" "}
+    <div className="update-service-order-container">
+      <h4 className="update-title">Atualize as informações</h4>
+      <ul className="update-service-ul">
+        <li className="service-order-li">
+          <label className="service-input-label" htmlFor="description">
+            Descrição
+          </label>
           <input
+            id="description"
+            className="input"
             defaultValue={order_description}
             placeholder="Descrição (Obrigatório)"
             required
             onChange={(e) => setNewDescription(e.target.value)}
           ></input>
         </li>
-        <li>
-          Prazo:
+        <li className="service-order-li">
+          <label className="service-input-label" htmlFor="deadline">
+            Prazo:
+          </label>
           <input
+            className="input"
+            id="deadline"
             defaultValue={deadline_date}
             placeholder="Prazo"
             type="date"
@@ -111,9 +119,13 @@ export function UpdateServiceOrder({
             required
           ></input>
         </li>
-        <li>
-          Custo estimado:{" "}
+        <li className="service-order-li">
+          <label className="service-input-label" htmlFor="estimated">
+            Custo estimado
+          </label>
           <input
+            id="estimated"
+            className="input"
             defaultValue={estimated_cost}
             placeholder="Custo Estimado (Obrigatório)"
             type="number"
@@ -123,21 +135,35 @@ export function UpdateServiceOrder({
             required
           ></input>
         </li>
-        <li>
-          Status:{" "}
+        <li className="service-order-li">
+          <label className="service-input-label" htmlFor="status">
+            Status
+          </label>
           <select
+            id="status"
+            className="select"
             defaultValue={order_status}
             required
             onChange={(e) => setNewStatus(e.target.value)}
           >
-            <option value="PENDENTE">PENDENTE</option>
-            <option value="FINALIZADO">FINALIZADO</option>
-            <option value="CANCELADO">CANCELADO</option>
+            <option className="select-option" value="PENDENTE">
+              PENDENTE
+            </option>
+            <option className="select-option" value="FINALIZADO">
+              FINALIZADO
+            </option>
+            <option className="select-option" value="CANCELADO">
+              CANCELADO
+            </option>
           </select>
         </li>
-        <li>
-          Curso final:{" "}
+        <li className="service-order-li">
+          <label className="service-input-label" htmlFor="finalCost">
+            Custo final
+          </label>
           <input
+            id="finalCost"
+            className="input"
             defaultValue={final_cost}
             placeholder="Custo Final"
             type="number"
@@ -148,8 +174,12 @@ export function UpdateServiceOrder({
           ></input>
         </li>
       </ul>
-      <button onClick={() => handleUpdate()}>Confirmar</button>
-      <button onClick={() => setUpdating(!updating)}>Cancelar</button>
+      <button className="btn mt-3" onClick={() => handleUpdate()}>
+        Confirmar
+      </button>
+      <button className="btn mx-1 mt-3" onClick={() => setUpdating(!updating)}>
+        Cancelar
+      </button>
     </div>
   );
 }

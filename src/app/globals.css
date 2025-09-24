@@ -6,6 +6,7 @@
  *
  * Descrição:
  * arquivo css responsável por integrar as classes do tailwind ao projeto
+ * + classes de componentes utilizando o @layer components e @apply
  *
  * Este script é parte o curso de ADS.
  */
@@ -23,13 +24,29 @@
     @apply bg-slate-900 text-primary md:p-5 md:w-3/4 md:min-h-screen md:rounded-lg;
   }
 
+  .btn {
+    @apply rounded bg-cyan-700 p-2 text-white font-semibold hover:bg-white hover:text-primary;
+  }
+
+  .input {
+    @apply text-primary p-1 md:p-2 rounded border-2 border-primary font-bold;
+  }
+
+  .select {
+    @apply p-2 md:self-start font-bold;
+  }
+
+  .select-option {
+    @apply font-bold;
+  }
+
   /* HEADER ========================================= */
   .header {
-    @apply md:flex md:flex-row md:justify-start md:items-center md:gap-12 md:p-4 border-b-2 border-slate-900 mb-7;
+    @apply md:flex md:flex-row md:justify-start md:items-center md:gap-12 md:p-4 mb-7 flex-wrap;
   }
 
   .title {
-    @apply text-4xl font-bold sm:text-5xl my-5 md:mb-0 md:mr-7 md:my-0;
+    @apply text-4xl font-bold  my-5 md:mb-0 md:mr-7 md:my-0;
   }
 
   .navbar {
@@ -61,22 +78,116 @@
 
   /* CLIENTS ========================================= */
   .table-wrapper {
-    @apply w-full overflow-auto mb-3;
+    @apply w-full overflow-auto mb-3 text-white;
   }
+
+  .table {
+    @apply border-2 border-collapse mb-7;
+  }
+
   .table-tr {
-    @apply border-2 px-3 py-2 border-slate-400;
+    @apply border-2 px-3 py-2 border-primary;
   }
   .table-td {
-    @apply border-2 px-3 py-2 border-slate-400;
+    @apply border-2 px-3 py-2 border-primary;
   }
 
   .actions {
-    @apply flex gap-2 p-3 flex-wrap justify-center items-center;
+    @apply flex gap-2 p-3 flex-wrap justify-start items-center;
+  }
+  /* ===================== */
+
+  /* NEW CLIENT ========================================= */
+
+  .form-title {
+    @apply text-3xl font-semibold mb-2;
+  }
+
+  .form {
+    @apply flex flex-col gap-3 p-2 justify-center items-center md:items-start md:grid md:grid-cols-2;
+  }
+
+  .form-input {
+    @apply min-w-72 md:min-w-80;
   }
 
   /* ===================== */
 
-  .btn {
-    @apply rounded bg-cyan-700 p-2 text-white font-semibold hover:bg-white hover:text-primary;
+  /* SERVICES ORDER ========================================= */
+  .service-order-container {
+    @apply flex flex-wrap;
   }
+
+  .service-owner {
+    @apply font-extrabold text-4xl m-4;
+  }
+
+  .service-h2 {
+    @apply font-bold text-xl my-4;
+  }
+
+  .service-order-card {
+    @apply border p-2 m-2 xl:max-w-72 min-w-72 hover:scale-105 hover:bg-slate-800 flex-1;
+  }
+
+  /* status border e text*/
+  .PENDENTE {
+    @apply border-yellow-200;
+  }
+  .status-text[data-status="PENDENTE"] {
+    @apply text-yellow-200 font-semibold
+  }
+
+  .FINALIZADO {
+    @apply border-green-300;
+  }
+  .status-text[data-status="FINALIZADO"] {
+    @apply text-green-300 font-semibold
+  }
+
+  .CANCELADO {
+    @apply border-red-300;
+  }
+  .status-text[data-status="CANCELADO"] {
+    @apply text-red-300 font-semibold
+  }
+
+  .service-order-title {
+    @apply text-2xl font-bold;
+  }
+
+  .service-order-created {
+    @apply text-sm text-slate-400;
+  }
+
+  .service-order-desc {
+    @apply font-semibold text-2xl m-2;
+  }
+  .service-order-li {
+    @apply text-slate-400;
+  }
+  /* ===================== */
+
+  /* SERVICES ORDER ========================================= */
+  .update-service-order-container {
+    @apply p-2;
+  }
+  .update-title {
+    @apply font-semibold text-2xl;
+  }
+  .update-service-ul {
+    @apply flex flex-col gap-2;
+  }
+  .service-order-li {
+    @apply flex flex-col;
+  }
+
+  .service-input-label {
+    @apply text-sm text-slate-400 pr-2;
+  }
+
+  .new-service-form {
+    @apply flex flex-col gap-3 max-w-80 flex-1 flex-wrap;
+  }
+  /* ===================== */
 }

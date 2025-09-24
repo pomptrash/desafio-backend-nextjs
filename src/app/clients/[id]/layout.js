@@ -17,8 +17,7 @@ export default async function LayoutClientDetails({ children, params }) {
 
   return (
     <section>
-      <h2>{client?.name}</h2>
-      <h2>Ordens de serviço:</h2>
+      <h2 className="service-owner">{client?.name}</h2>
       {children}
     </section>
   );

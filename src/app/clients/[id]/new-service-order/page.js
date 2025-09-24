@@ -35,15 +35,20 @@ export default function NewServiceOrder({ params }) {
       estimated_cost: parseFloat(estimatedCost).toFixed(2),
     };
 
-    // validando os dados 
-    if (!newServiceOrderData.client_id || !newServiceOrderData.deadline_date || !newServiceOrderData.order_description || !newServiceOrderData.estimated_cost) {
-      alert("Preencha todos os campos obrigatórios")
-      return
+    // validando os dados
+    if (
+      !newServiceOrderData.client_id ||
+      !newServiceOrderData.deadline_date ||
+      !newServiceOrderData.order_description ||
+      !newServiceOrderData.estimated_cost
+    ) {
+      alert("Preencha todos os campos obrigatórios");
+      return;
     }
 
     if (estimatedCost < 0) {
-      alert("Custo estimado não pode ser menor que zero")
-      return
+      alert("Custo estimado não pode ser menor que zero");
+      return;
     }
 
     // faz a requisição caso os dados tenham sido validados
@@ -60,17 +65,19 @@ export default function NewServiceOrder({ params }) {
 
   return (
     <section>
-      <button>
+      <button className="btn">
         <Link href={`./`}>Cancelar</Link>
       </button>
-      <h2>Nova ordem de serviço</h2>
-      <form>
+      <h2 className="service-h2">Nova ordem de serviço</h2>
+      <form className="new-service-form">
         <input
+          className="input form-input"
           placeholder="Descrição (Obrigatório)"
           onChange={(e) => setOrderDescription(e.target.value)}
           required
         ></input>
         <input
+          className="input form-input"
           placeholder="Custo Estimado (Obrigatório)"
           type="number"
           min="0"
@@ -79,8 +86,12 @@ export default function NewServiceOrder({ params }) {
           required
         ></input>
         <label>
-          Prazo:{" "}
+          <label className="service-input-label" htmlFor="prazo">
+            Prazo:
+          </label>
           <input
+            className="input"
+            id="prazo"
             placeholder="Prazo"
             type="date"
             min={today}
@@ -91,6 +102,7 @@ export default function NewServiceOrder({ params }) {
           ></input>
         </label>
         <button
+          className="btn"
           onClick={(e) => {
             e.preventDefault(), handleCreate();
           }}

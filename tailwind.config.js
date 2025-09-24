@@ -5,7 +5,7 @@
  * Matrícula: 01748208
  *
  * Descrição:
- * arquivo css responsável por configuração inicial do tailwind.css 
+ * arquivo js responsável por configuração inicial do tailwind.css 
  *
  * Este script é parte o curso de ADS.
  */

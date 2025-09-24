@@ -20,23 +20,28 @@ export default async function ClientDetails({ params }) {
 
   return (
     <section>
-      <button>
+      <h2 className="service-h2">Ordens de serviço:</h2>
+      <button className="btn mb-5">
         <Link href={`./${id}/new-service-order`}>
           Criar nova ordem de serviço
         </Link>
       </button>
-      {client.service_orders.length === 0 ? (
-        <p>Cliente não possui ordens de serviço.</p>
-      ) : (
-        client.service_orders &&
-        client.service_orders.map((service_order, index) => (
-          <ServiceOrder
-            key={service_order.id}
-            serviceOrderData={service_order}
-            index={index}
-          />
-        ))
-      )}
+      <div className="service-order-container">
+        {client.service_orders.length === 0 ? (
+          <p className="font-semibold text-2xl m-3">
+            Cliente não possui ordens de serviço.
+          </p>
+        ) : (
+          client.service_orders &&
+          client.service_orders.map((service_order, index) => (
+            <ServiceOrder
+              key={service_order.id}
+              serviceOrderData={service_order}
+              index={index}
+            />
+          ))
+        )}
+      </div>
     </section>
   );
 }

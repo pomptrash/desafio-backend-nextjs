@@ -57,24 +57,18 @@ export function UpdateClient({ update, setUpdate, clientData }) {
   }
   return (
     <>
-      <td>
+      <td className="table-td">
         <input
+          className="input max-w-fit"
           required
           placeholder="Nome (Obrigatório)"
           defaultValue={name}
           onChange={(e) => setNewName(e.target.value)}
         ></input>
       </td>
-      <td>
+      <td className="table-td">
         <input
-          required
-          placeholder="Endereço (Obrigatório)"
-          defaultValue={address}
-          onChange={(e) => setNewAddress(e.target.value)}
-        ></input>
-      </td>
-      <td>
-        <input
+          className="input"
           required
           placeholder="Telefone (Obrigatório)"
           defaultValue={phone}
@@ -82,8 +76,9 @@ export function UpdateClient({ update, setUpdate, clientData }) {
           onChange={(e) => setNewPhone(e.target.value)}
         ></input>
       </td>
-      <td>
+      <td className="table-td">
         <input
+          className="input"
           required
           placeholder="Email (Obrigatório)"
           defaultValue={email}
@@ -91,9 +86,22 @@ export function UpdateClient({ update, setUpdate, clientData }) {
           onChange={(e) => setNewEmail(e.target.value)}
         ></input>
       </td>
-      <td>
-        <button onClick={() => handleClick()}>Confirmar</button>
-        <button onClick={() => setUpdate(!update)}>Cancelar</button>
+      <td className="table-td">
+        <input
+          className="input"
+          required
+          placeholder="Endereço (Obrigatório)"
+          defaultValue={address}
+          onChange={(e) => setNewAddress(e.target.value)}
+        ></input>
+      </td>
+      <td className="actions">
+        <button className="btn" onClick={() => handleClick()}>
+          Confirmar
+        </button>
+        <button className="btn" onClick={() => setUpdate(!update)}>
+          Cancelar
+        </button>
       </td>
     </>
   );
