@@ -18,25 +18,27 @@ export default async function Clients() {
 
   return (
     <div>
-      <table>
-        <thead>
-          <tr>
-            <td>ID</td>
-            <td>Nome</td>
-            <td>Endereço</td>
-            <td>Telefone</td>
-            <td>Email</td>
-            <td>Actions</td>
-          </tr>
-        </thead>
-        <tbody>
-          {clients.map((client, index) => (
-            <Client key={client.email} clientData={client} index={index} />
-          ))}
-        </tbody>
-      </table>
-      <button>
-        <Link href={"/clients/new-client"}>Cadastrar novo cliente</Link>
+      <div className="table-wrapper">
+        <table className="border-2 border-collapse mb-7">
+          <thead>
+            <tr className="table-tr font-extrabold">
+              <td className="table-td">ID</td>
+              <td className="table-td">Nome</td>
+              <td className="table-td">Telefone</td>
+              <td className="table-td">Email</td>
+              <td className="table-td">Endereço</td>
+              <td className="table-td">Actions</td>
+            </tr>
+          </thead>
+          <tbody>
+            {clients.map((client, index) => (
+              <Client key={client.email} clientData={client} index={index} />
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <button className="btn">
+        <Link href={"/clients/new-client"}>Cadastrar cliente</Link>
       </button>
     </div>
   );

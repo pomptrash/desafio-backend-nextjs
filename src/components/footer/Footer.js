@@ -12,12 +12,11 @@
  */
 export function Footer() {
   return (
-    <footer>
-      <a href="https://github.com/pomptrash/desafio-backend-nextjs" target="_blank">
+    <footer className="footer">
+      <a className="footer-link link" href="https://github.com/pomptrash/desafio-backend-nextjs" target="_blank">
         Meu repositório
       </a>
-      <br/>
-      <a href="https://github.com/FranciscoWallison/desafio-back-end" target="_blank">
+      <a className="footer-link link" href="https://github.com/FranciscoWallison/desafio-back-end" target="_blank">
         Repositório do desafio
       </a>
     </footer>

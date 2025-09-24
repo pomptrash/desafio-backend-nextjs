@@ -18,6 +18,9 @@ import { UpdateClient } from "./UpdateClient";
 import { deleteClient } from "../../../../services/clientServices";
 import Link from "next/link";
 
+// ícones
+import { Pencil, Trash } from 'lucide-react';
+
 export function Client({ clientData, index }) {
   // ao clicar em atualizar, o state update recebe 'true' e o componente 'UpdateClient' é renderizado
   const [update, setUpdate] = useState(false); // state para capturar clique no botão de atualizar
@@ -46,9 +49,9 @@ export function Client({ clientData, index }) {
     }
   }
   return (
-    <tr>
+    <tr className="table-tr font-semibold uppercase">
       {/* index somente para visualização */}
-      <td>{index + 1}</td>
+      <td className="table-td">{index + 1}</td>
 
       {/* caso update seja true, ou seja, ação de atualizar foi chamada */}
       {update ? (
@@ -60,16 +63,16 @@ export function Client({ clientData, index }) {
       ) : (
         <>
           {/* caso update seja false, ou seja, ação de atualizar não foi chamada */}
-          <td>{name}</td>
-          <td>{address}</td>
-          <td>{phone}</td>
-          <td>{email}</td>
-          <td>
+          <td className="table-td">{name}</td>
+          <td className="table-td">{phone}</td>
+          <td className="table-td">{email}</td>
+          <td className="table-td">{address}</td>
+          <td className="actions">
             {/* ao clicar, o state update recebe true */}
-            <button onClick={() => setUpdate(!update)}>Atualizar</button>
-            <button onClick={() => handleDelete()}>Deletar</button>
+            <button className="btn" onClick={() => setUpdate(!update)}><Pencil className="font-bold"/></button>
+            <button className="btn" onClick={() => handleDelete()}><Trash className="font-bold"/></button>
             <Link href={`/clients/${id}`}>
-              <button>Ordens de serviço</button>
+              <button className="border-l-2 pl-1 py-3 border-primary hover:scale-110">Ordens de serviço</button>
             </Link>
           </td>
         </>

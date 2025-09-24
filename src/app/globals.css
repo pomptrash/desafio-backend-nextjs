@@ -12,3 +12,71 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .body {
+    /* md */
+    @apply flex justify-center items-center min-h-screen py-5 box-border bg-slate-800;
+  }
+
+  .app-wrapper {
+    @apply bg-slate-900 text-primary md:p-5 md:w-3/4 md:min-h-screen md:rounded-lg;
+  }
+
+  /* HEADER ========================================= */
+  .header {
+    @apply md:flex md:flex-row md:justify-start md:items-center md:gap-12 md:p-4 border-b-2 border-slate-900 mb-7;
+  }
+
+  .title {
+    @apply text-4xl font-bold sm:text-5xl my-5 md:mb-0 md:mr-7 md:my-0;
+  }
+
+  .navbar {
+    @apply flex justify-center mr-16;
+  }
+  .navbar-ul {
+    @apply flex flex-row text-xl font-semibold justify-around gap-10 md:gap-12;
+  }
+
+  .navbar-li {
+    @apply p-3 border-l-2 hover:scale-110 border-primary w-max;
+  }
+  /* ===================== */
+
+  /* FOOTER ========================================= */
+  .footer {
+    @apply flex flex-row gap-20 w-auto mt-20;
+  }
+  .footer-link {
+    @apply font-bold border-l-2 hover:scale-110 border-primary pl-1;
+  }
+  /* ===================== */
+
+  /* HOME ========================================= */
+  .home-section {
+    @apply flex flex-col gap-10;
+  }
+  /* ===================== */
+
+  /* CLIENTS ========================================= */
+  .table-wrapper {
+    @apply w-full overflow-auto mb-3;
+  }
+  .table-tr {
+    @apply border-2 px-3 py-2 border-slate-400;
+  }
+  .table-td {
+    @apply border-2 px-3 py-2 border-slate-400;
+  }
+
+  .actions {
+    @apply flex gap-2 p-3 flex-wrap justify-center items-center;
+  }
+
+  /* ===================== */
+
+  .btn {
+    @apply rounded bg-cyan-700 p-2 text-white font-semibold hover:bg-white hover:text-primary;
+  }
+}

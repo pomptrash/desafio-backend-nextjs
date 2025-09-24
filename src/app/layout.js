@@ -22,10 +22,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-br">
-      <body>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+      <body className="md:body">
+        <div className="app-wrapper min-h-screen p-5">
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

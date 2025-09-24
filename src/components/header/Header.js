@@ -14,14 +14,14 @@ import Link from "next/link";
 
 export function Header() {
   return (
-    <header>
-      <h1>Desafio Backend Next.js</h1>
-      <navbar>
-        <ul>
-          <li>
+    <header className="header">
+      <h1 className="title">Desafio Backend Next.js</h1>
+      <navbar className="navbar">
+        <ul className="navbar-ul">
+          <li className="navbar-li">
             <Link href={"/"}>Página Inicial</Link>
           </li>
-          <li>
+          <li className="navbar-li">
             <Link href={"/clients"}>Clientes</Link>
           </li>
         </ul>

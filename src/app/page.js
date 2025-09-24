@@ -12,11 +12,11 @@
  */
 export default function Home() {
   return (
-    <section>
-      <p>
+    <section className="home-section">
+      <p className="text-2xl font-bold">
         Desafio FullStack proposto pelo professor Chico do  3º semestre de Análise e Desenvolvimento de Sistemas, UniNassau.
       </p>
-      <p>
+      <p className="text-xl font-medium">
         O objetivo é construir uma API RESTful e uma interface visual que
         permitam as operações completas de CRUD (criar, ler, atualizar e
         deletar) utlizando o FrameWork NEXT.js.
