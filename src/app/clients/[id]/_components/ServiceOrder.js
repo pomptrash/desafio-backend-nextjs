@@ -12,7 +12,7 @@
  */
 "use client";
 import { useRouter } from "next/navigation";
-import { deleteServiceOrder } from "../../../../../services/orderServices";
+import { deleteServiceOrder } from "../../../../services/orderServices";
 import { useState } from "react";
 import { UpdateServiceOrder } from "./UpdateServiceOrder";
 import { Pencil, Trash } from "lucide-react";

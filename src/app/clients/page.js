@@ -11,8 +11,11 @@
  * Este script é parte o curso de ADS.
  */
 import { Client } from "./_components/Client";
-import { getClients } from "../../../services/clientServices";
+import { getClients } from "../../services/clientServices";
 import Link from "next/link";
+
+export const revalidate = 0; // impedir cache para que a listagem de dados seja atualizada
+
 export default async function Clients() {
   const clients = await getClients();
 

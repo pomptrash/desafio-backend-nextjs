@@ -13,19 +13,22 @@
  * Este script é parte o curso de ADS.
  */
 
-import { prisma } from "../../../../lib/prisma";
-import { getClients } from "../../../../services/clientServices";
+import { prisma } from "@/lib/prisma";
+import { getClients } from "../../../services/clientServices";
 import { NextResponse } from "next/server";
+
+import { CORS_HEADERS, handleOptions } from "@/lib/cors-handler";
+export { handleOptions as OPTIONS };
 
 // método GET para buscar todos os clientes
 export async function GET() {
   try {
     const clients = await getClients();
-    return NextResponse.json(clients, { status: 200 });
+    return NextResponse.json(clients, { status: 200, headers: CORS_HEADERS });
   } catch (error) {
     return NextResponse.json(
       { error: "Erro ao requisitar dados." },
-      { status: 500 }
+      { status: 500, headers: CORS_HEADERS  }
     );
   }
 }
@@ -41,7 +44,7 @@ export async function POST(request) {
     if (!name || !address || !phone || !email) {
       return NextResponse.json(
         { error: "Todos os campos devem ser preenchidos." },
-        { status: 400 }
+        { status: 400, headers: CORS_HEADERS  }
       );
     }
 
@@ -55,18 +58,18 @@ export async function POST(request) {
       },
     });
 
-    return NextResponse.json(newClient, { status: 201 });
+    return NextResponse.json(newClient, { status: 201, headers: CORS_HEADERS  });
   } catch (error) {
     // prisma error.code para 'unique constraint failed'
     if (error.code === "P2002") {
       return NextResponse.json(
         { error: "Email já utilizado" },
-        { status: 409 }
+        { status: 409, headers: CORS_HEADERS  }
       );
     }
     return NextResponse.json(
       { error: "Erro ao cadastrar novo cliente." },
-      { status: 500 }
+      { status: 500, headers: CORS_HEADERS  }
     );
   }
 }

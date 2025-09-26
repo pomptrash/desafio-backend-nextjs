@@ -13,7 +13,7 @@
  * Este script é parte o curso de ADS.
  */
 "use client";
-import { updateClientAPI } from "../../../../services/clientServices";
+import { updateClientAPI } from "../../../services/clientServices";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 export function UpdateClient({ update, setUpdate, clientData }) {

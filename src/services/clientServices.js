@@ -52,6 +52,7 @@ export async function createNewClient(newClientData) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newClientData),
+      cache: 'no-store'
     });
 
     if (!response.ok) {

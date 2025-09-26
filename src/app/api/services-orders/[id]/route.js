@@ -14,8 +14,11 @@
  * Este script é parte o curso de ADS.
  */
 
-import { prisma } from "../../../../../lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+
+import { CORS_HEADERS, handleOptions } from "@/lib/cors-handler";
+export { handleOptions as OPTIONS };
 
 // método GET para requisitar uma ordem correspondente ao ID passado
 export async function GET(request, { params }) {
@@ -31,7 +34,7 @@ export async function GET(request, { params }) {
     if (!order)
       return NextResponse.json(
         { error: "Ordem não encontrada" },
-        { status: 404 }
+        { status: 404, headers: CORS_HEADERS }
       );
 
     return NextResponse.json(order, { status: 200 });
@@ -41,11 +44,11 @@ export async function GET(request, { params }) {
     if (err.code === "P2025")
       return NextResponse.json(
         { error: "Ordem de serviço não localizada" },
-        { status: 404 }
+        { status: 404, headers: CORS_HEADERS }
       );
     return NextResponse.json(
       { error: "Erro ao requisitar ordem" },
-      { status: 500 }
+      { status: 500, headers: CORS_HEADERS }
     );
   }
 }
@@ -72,14 +75,14 @@ export async function PUT(request, { params }) {
     if (order_status && !enumStatus.includes(order_status))
       return NextResponse(
         { error: "Valor de status inválido" },
-        { status: 400 }
+        { status: 400, headers: CORS_HEADERS }
       );
 
     // validando a nova descrição passada para a ordem de serviço
     if (!order_description || order_description.trim() === "" || !order_status)
       return NextResponse.json(
         { error: "Preencha os campos obrigatórios" },
-        { status: 400 }
+        { status: 400, headers: CORS_HEADERS }
       );
 
     if (order_status === "FINALIZADO" && !final_cost) {
@@ -88,7 +91,7 @@ export async function PUT(request, { params }) {
           error:
             "Para finalizar uma ordem de serviço, você deve informar o custo final.",
         },
-        { status: 400 }
+        { status: 400, headers: CORS_HEADERS }
       );
     }
     if (final_cost && order_status !== "FINALIZADO") {
@@ -97,7 +100,7 @@ export async function PUT(request, { params }) {
           error:
             "Não é possível informar o custo final de uma ordem de serviço não finalizada.",
         },
-        { status: 400 }
+        { status: 400, headers: CORS_HEADERS }
       );
     }
 
@@ -126,11 +129,11 @@ export async function PUT(request, { params }) {
     if (err.code === "P2025")
       return NextResponse.json(
         { error: "Ordem de serviço não localizada" },
-        { status: 404 }
+        { status: 404, headers: CORS_HEADERS }
       );
     return NextResponse.json(
       { error: "Erro ao atualizar a ordem de serviço." },
-      { status: 500 }
+      { status: 500, headers: CORS_HEADERS }
     );
   }
 }
@@ -149,7 +152,7 @@ export async function DELETE(request, { params }) {
 
     return NextResponse.json(
       { message: "Ordem de serviço excluída com sucesso." },
-      { status: 200 }
+      { status: 200, headers: CORS_HEADERS }
     );
   } catch (err) {
     console.log(err);
@@ -157,12 +160,12 @@ export async function DELETE(request, { params }) {
     if (err.code === "P2025")
       return NextResponse.json(
         { error: "Ordem de serviço não localizada" },
-        { status: 404 }
+        { status: 404, headers: CORS_HEADERS }
       );
     // erro genérico
     return NextResponse.json(
       { error: "Erro ao deletar a ordem de serviço." },
-      { status: 500 }
+      { status: 500, headers: CORS_HEADERS }
     );
   }
 }

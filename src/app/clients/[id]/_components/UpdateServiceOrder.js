@@ -12,7 +12,7 @@
 
 "use client";
 import { useState } from "react";
-import { updateServiceOrder } from "../../../../../services/orderServices";
+import { updateServiceOrder } from "../../../../services/orderServices";
 import { useRouter } from "next/navigation";
 export function UpdateServiceOrder({
   serviceOrderData,

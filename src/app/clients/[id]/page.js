@@ -12,7 +12,7 @@
  * Este script é parte o curso de ADS.
  */
 import Link from "next/link";
-import { getOneClient } from "../../../../services/clientServices";
+import { getOneClient } from "../../../services/clientServices";
 import { ServiceOrder } from "./_components/ServiceOrder";
 export default async function ClientDetails({ params }) {
   const { id } = await params;

@@ -14,8 +14,11 @@
  * Este script é parte o curso de ADS.
  */
 
-import { prisma } from "../../../../../lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+
+import { CORS_HEADERS, handleOptions } from "@/lib/cors-handler";
+export { handleOptions as OPTIONS };
 
 // método GET para buscar um cliente específico
 export async function GET(request, { params }) {
@@ -33,14 +36,14 @@ export async function GET(request, { params }) {
     if (!client)
       return NextResponse.json(
         { error: "Cliente não encontrado." },
-        { status: 404 }
+        { status: 404, headers: CORS_HEADERS }
       );
 
-    return NextResponse.json(client, { status: 200 });
+    return NextResponse.json(client, { status: 200, headers: CORS_HEADERS });
   } catch (error) {
     return NextResponse.json(
       { error: "Erro ao localizar cliente" },
-      { status: 500 }
+      { status: 500, headers: CORS_HEADERS }
     );
   }
 }
@@ -57,7 +60,7 @@ export async function PUT(request, { params }) {
     if (!name || !address || !phone || !email) {
       return NextResponse.json(
         { error: "Todos os campos devem ser preenchidos." },
-        { status: 400 }
+        { status: 400, headers: CORS_HEADERS }
       );
     }
 
@@ -72,13 +75,16 @@ export async function PUT(request, { params }) {
       },
     });
 
-    return NextResponse.json(updatedClient, { status: 200 });
+    return NextResponse.json(updatedClient, {
+      status: 200,
+      headers: CORS_HEADERS,
+    });
   } catch (error) {
     // error.code fornecido pelo prisma para especificar o erro
     if (error.code === "P2025") {
       return NextResponse.json(
         { error: "Cliente não encontrado" },
-        { status: 404 }
+        { status: 404, headers: CORS_HEADERS }
       );
     }
 
@@ -86,14 +92,14 @@ export async function PUT(request, { params }) {
     if (error.code === "P2002") {
       return NextResponse.json(
         { error: "Email já existe." },
-        { status: 409 }
+        { status: 409, headers: CORS_HEADERS }
       );
     }
 
     // erro genérico
     return NextResponse.json(
       { error: "Erro ao atualizar cliente." },
-      { status: 500 }
+      { status: 500, headers: CORS_HEADERS }
     );
   }
 }
@@ -111,14 +117,14 @@ export async function DELETE(request, { params }) {
 
     return NextResponse.json(
       { message: "Cliente deletado com sucesso." },
-      { status: 200 }
+      { status: 200, headers: CORS_HEADERS }
     );
   } catch (error) {
     // error.code fornecido pelo prisma para especificar o erro
     if (error.code === "P2025") {
       return NextResponse.json(
         { error: "Cliente não encontrado" },
-        { status: 404 }
+        { status: 404, headers: CORS_HEADERS }
       );
     }
 
@@ -130,13 +136,13 @@ export async function DELETE(request, { params }) {
           error:
             "Não é possível excluir clientes que possuem ordens de serviço criadas.",
         },
-        { status: 400 }
+        { status: 400, headers: CORS_HEADERS }
       );
     }
     // erro genérico
     return NextResponse.json(
       { error: "Erro ao deletar cliente" },
-      { status: 500 }
+      { status: 500, headers: CORS_HEADERS }
     );
   }
 }

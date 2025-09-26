@@ -10,7 +10,7 @@
  *
  * Este script é parte o curso de ADS.
  */
-import { getOneClient } from "../../../../services/clientServices";
+import { getOneClient } from "../../../services/clientServices";
 export default async function LayoutClientDetails({ children, params }) {
   const { id } = await params;
   const client = await getOneClient(id);

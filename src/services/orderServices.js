@@ -22,6 +22,9 @@ export async function getOrders() {
   try {
     const orders = await prisma.service_order.findMany({
       include: { client: true },
+      orderBy: {
+        deadline_date: 'asc'
+      }
     });
     return orders;
   } catch (err) {

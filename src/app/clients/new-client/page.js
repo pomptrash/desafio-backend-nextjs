@@ -15,8 +15,8 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { fetchCEP } from "../../../../services/viaCepApi";
-import { createNewClient } from "../../../../services/clientServices";
+import { fetchCEP } from "../../../services/viaCepApi";
+import { createNewClient } from "../../../services/clientServices";
 export default function NewClient() {
   // states para dados do novo cliente
   const [newClientName, setNewClientName] = useState();

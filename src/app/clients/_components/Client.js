@@ -15,7 +15,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { UpdateClient } from "./UpdateClient";
-import { deleteClient } from "../../../../services/clientServices";
+import { deleteClient } from "../../../services/clientServices";
 import Link from "next/link";
 
 // ícones
