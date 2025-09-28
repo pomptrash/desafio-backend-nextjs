@@ -17,8 +17,17 @@ import { prisma } from "@/lib/prisma";
 import { getClients } from "../../../services/clientServices";
 import { NextResponse } from "next/server";
 
-import { CORS_HEADERS, handleOptions } from "@/lib/cors-handler";
-export { handleOptions as OPTIONS };
+import { CORS_HEADERS } from "@/lib/cors-handler";
+// método OPTIONS para validação dos cabeçalhos da requisição
+export async function OPTIONS() {
+  return NextResponse.json(
+    {},
+    {
+      status: 200,
+      headers: CORS_HEADERS,
+    }
+  );
+}
 
 // método GET para buscar todos os clientes
 export async function GET() {
